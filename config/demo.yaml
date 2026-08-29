@@ -1,0 +1,31 @@
+# Small configuration for the smoke test on the synthetic scene of
+# scripts/make_demo_data.py. Same pipeline, 128 px tiles instead of 512.
+
+experiment:
+  name: demo
+  log_dir: runs
+
+dataset:
+  root_dir: data/demo/images
+  masks:
+    train: data/demo/masks/train.shp
+    val: data/demo/masks/val.shp
+    test: null
+
+  patch_size: 128
+  stride: 128
+  lr_patch_size: 26 # 128 / 5
+
+  bands: [1, 2, 3]
+
+  overlap_threshold: 0.9
+  max_nodata_ratio: 0.1
+  nodata_value: 0
+
+dataloader:
+  batch_size: 8
+  num_workers: 4
+
+trainer:
+  max_epochs: 2
+  accumulate_grad_batches: 1

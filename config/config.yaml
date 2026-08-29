@@ -1,0 +1,30 @@
+# 5x super-resolution of NAIP imagery, the setup used in the paper.
+
+experiment:
+  name: naip_5x
+  log_dir: runs
+
+dataset:
+  root_dir: data/images # searched recursively for .tif / .tiff / .sid
+  masks:
+    train: data/masks/train.shp
+    val: data/masks/val.shp
+    test: data/masks/test.shp # set to null to skip the test split
+
+  patch_size: 512 # HR patch, also the tile size used at inference
+  stride: 512 # stride of the patch grid
+  lr_patch_size: 102 # 512 / 5, the LR grid each patch is degraded to
+
+  bands: [1, 2, 3] # 1-indexed, R G B of NAIP
+
+  overlap_threshold: 0.9 # minimum fraction of a patch inside the mask
+  max_nodata_ratio: 0.1 # maximum fraction of NoData pixels in a patch
+  nodata_value: 0 # null to take it from the raster metadata
+
+dataloader:
+  batch_size: 8 # per GPU
+  num_workers: 16
+
+trainer:
+  max_epochs: 100
+  accumulate_grad_batches: 8

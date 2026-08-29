@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+
+# pixi environment
+.pixi/
+
+# imagery, checkpoints and inference outputs
+data/
+runs/
+outputs/
+*.pkl
